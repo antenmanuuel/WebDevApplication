@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>DashboardKit Bootstrap 5 Admin Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="DashboardKit is made using Bootstrap 5 design framework. Download the free admin template & use it for your project.">
+    <meta name="keywords" content="DashboardKit, Dashboard Kit, Dashboard UI Kit, Bootstrap 5, Admin Template, Admin Dashboard, CRM, CMS, Free Bootstrap Admin Template">
+    <meta name="author" content="DashboardKit ">
+
+
+    <!-- Favicon icon -->
+    <link rel="icon" href="assets/images/favicon.svg" type="image/x-icon">
+
+    <!-- font css -->
+    <link rel="stylesheet" href="assets/fonts/feather.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome.css">
+    <link rel="stylesheet" href="assets/fonts/material.css">
+
+    <!-- vendor css -->
+    <link rel="stylesheet" href="assets/css/style.css" id="main-style-link">
+    <script src="js/includeHtml.js"></script>
+</head>
+
+<body class="">
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+
+    <div class="pc-mob-header pc-header">
+        <div class="pcm-logo">
+            <img src="assets/images/logo-white.png" alt="" class="logo logo-lg">
+        </div>
+        <div class="pcm-toolbar">
+            <a href="#!" class="pc-head-link" id="mobile-collapse">
+                <div class="hamburger hamburger--arrowturn">
+                    <div class="hamburger-box">
+                        <div class="hamburger-inner"></div>
+                    </div>
+                </div>
+            </a>
+            <a href="#!" class="pc-head-link" id="headerdrp-collapse">
+                <i data-feather="align-right"></i>
+            </a>
+            <a href="#!" class="pc-head-link" id="header-collapse">
+                <i data-feather="more-vertical"></i>
+            </a>
+        </div>
+    </div>
+    <div w3-include-html="navigation_menu.html"></div>
+
+    <header class="pc-header ">
+        <div id="header"></div>
+
+    </header>
+
+    <div class="pc-container">
+        <div class="pcoded-content">
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Search Cars</h5>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-item">Search Cars</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Search Cars</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive" id="results" style="min-height: 600px;">
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="container-fluid rounded mt-1" style="background-color: black;">
+                        <div w3-include-html="footer.html"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/vendor-all.min.js"></script>
+    <script src="assets/js/plugins/bootstrap.min.js"></script>
+    <script src="assets/js/plugins/feather.min.js"></script>
+    <script src="assets/js/pcoded.min.js"></script>
+
+
+    <script>
+        (function documentReady() {
+            includeHTML();
+        })();
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-storage.js"></script>
+    <script type="text/javascript" src="js/authentication.js"></script>
+    <script type="text/javascript" src="js/firebaseSDKsnippet.js"></script>
+
+
+    <script>
+        const database = firebase.firestore();
+        // Create a reference to the customers collection
+        const carsCollection = database.collection('cars');
+
+
+
+
+
+        function showRecords() {
+            console.log('Show all Cars.');
+            carsCollection.get().then(snapshot => {
+                    if (snapshot) {
+                        var table = "";
+                        /*Table start tag*/
+                        var table =
+                            '<table id="customersTable" class="table" cellspacing="0" width="100%">';
+                        /*Table head start tag*/
+                        table += "<thead>";
+                        table += "<tr>";
+                        table += "<th>" + "VIN" + "</th>"; //column1
+                        table += "<th>" + "Car Brand" + "</th>" //column2                    
+                        table += "<th>" + "Edit" + "</th>";
+                        table += "<th>" + "Delete" + "</th>";
+                        table += "</tr>";
+                        table += "</thead>"; /*Table head end tag*/
+
+                        /*Table body start tag*/
+                        table += "<tbody>";
+                        snapshot.forEach(function(docuemnt) {
+                            var id = docuemnt.id;
+                            var vin = docuemnt.get("vin");
+                            var carBrand = docuemnt.get("carBrand");
+
+
+                            console.log(docuemnt.id);
+                            table += "<tr>";
+                            table += "<td>" + vin + "</td>"; //column1
+                            table += "<td>" + carBrand + "</td>"; //column2
+                            table +=
+                                '<td><a  href="edit_car.html?id=' + id + '"><i class="fas fa-book" style="font-size:20px;color:#26A69A"></i></a></td>';
+
+                            table +=
+                                '<td><a onclick=removeCars("' +
+                                id +
+                                '") href="#"><i class="fas fa-trash-alt" style="font-size:20px;color:red"></i></a></td>';
+
+                            table += "</tr>";
+
+
+
+                        });
+
+                        /*Table body end tag*/
+                        table += "</tbody>";
+                        /*Table foot start tag*/
+                        table += "<tfoot>";
+                        table += "<tr>";
+                        table += "<th>" + "Vin" + "</th>"; //column1
+                        table += "<th>" + "Car Brand" + "</th>"; //column2
+                        table += "<th>" + "Edit" + "</th>";
+                        table += "<th>" + "Delete" + "</th>";
+                        table += "</tr>";
+                        table += "</tfoot>";
+                        /*Table foot end tag*/
+                        table += "</table>"; /*Table closing tag*/
+                        const results = document.getElementById("results");
+                        results.innerHTML = table;
+
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        };
+
+
+        function searchRecords(searchString) {
+            var query = carsCollection.where("vin", "==", searchString);
+            console.log('Search Result for: ' + searchString);
+            query.get().then(snapshot => {
+                    if (snapshot) {
+                        var table = "";
+                        /*Table start tag*/
+                        var table =
+                            '<table id="customersTable" class="table" cellspacing="0" width="100%">';
+                        /*Table head start tag*/
+                        table += "<thead>";
+                        table += "<tr>";
+                        table += "<th>" + "Vin" + "</th>"; //column1
+                        table += "<th>" + "car Brand" + "</th>"; //column2
+                        table += "<th>" + "Edit" + "</th>";
+                        table += "<th>" + "Delete" + "</th>";
+                        table += "</tr>";
+                        table += "</thead>"; /*Table head end tag*/
+
+                        /*Table body start tag*/
+                        table += "<tbody>";
+                        snapshot.forEach(function(docuemnt) {
+                            var id = docuemnt.id;
+                            var firstName = docuemnt.get("vin");
+                            var carMileage = docuemnt.get("carBrand");
+
+
+
+                            console.log(docuemnt.id);
+                            table += "<tr>";
+                            table += "<td>" + vin + "</td>"; //column1
+                            table += "<td>" + carBrand + "</td>"; //column2
+                            table +=
+                                '<td><a  href="edit_car.html?id=' + id + '"><i class="fas fa-book" style="font-size:20px;color:#26A69A"></i></a></td>';
+
+                            table +=
+                                '<td><a onclick=removeCars("' +
+                                id +
+                                '") href="#"><i class="fas fa-trash-alt" style="font-size:20px;color:red"></i></a></td>';
+
+                            table += "</tr>";
+
+
+
+                        });
+
+                        /*Table body end tag*/
+                        table += "</tbody>";
+                        /*Table foot start tag*/
+                        table += "<tfoot>";
+                        table += "<tr>";
+                        table += "<th>" + "Vin" + "</th>"; //column1
+                        table += "<th>" + "Car Brand" + "</th>"; //column2
+                        table += "<th>" + "Edit" + "</th>";
+                        table += "<th>" + "Delete" + "</th>";
+                        table += "</tr>";
+                        table += "</tfoot>";
+                        /*Table foot end tag*/
+                        table += "</table>"; /*Table closing tag*/
+                        const results = document.getElementById("results");
+                        results.innerHTML = table;
+
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        };
+
+
+        function removeCars(id) {
+            console.log(id);
+            carsCollection.doc(id).delete();
+            showRecords();
+            return false;
+        }
+    </script>
+
+    <script>
+        (function documentReady() {
+            includeHTML();
+            showRecords();
+        })();
+    </script>
+
+
+    <script>
+        (function loadHeader() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("header").innerHTML =
+                        this.responseText;
+                    document.getElementById("search").addEventListener("change", function() {
+                        searchString = document.getElementById("search").value;
+                        console.log(searchString);
+                        searchRecords(searchString);
+                    });
+                }
+            };
+            xhttp.open("GET", "header.html", true);
+            xhttp.send();
+        })();
+    </script>
+
+
+
+</body>
+
+</html>
