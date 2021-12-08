@@ -112,7 +112,7 @@
                                             <label for="manufacturerName" class="form-label">Manufacturer name</label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control" id="manufacturerName" name="manuafacturerName" aria-describedby="inputGroupPrepend" placeholder="Laptop Name" onkeyup="validateManufacturerName()">
-                                                <span class="input-group-text iconParent"><i class="fa fa-star" id="carBrandIcon"></i></span>
+                                                <span class="input-group-text iconParent"><i class="fa fa-star" id="manuafacturerNameIcon"></i></span>
                                             </div>
                                             <div class="error" id="manufacturerErr"></div>
                                         </div>
@@ -120,7 +120,7 @@
                                             <label for="brandName" class="form-label">Brand Name</label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control" id="brandName" name="brandName" aria-describedby="inputGroupPrepend" placeholder="Laptop Name" onkeyup="validateBrandName()">
-                                                <span class="input-group-text iconParent"><i class="fa fa-star" id="carBrandIcon"></i></span>
+                                                <span class="input-group-text iconParent"><i class="fa fa-star" id="brandNameIcon"></i></span>
                                             </div>
                                             <div class="error" id="brandErr"></div>
                                         </div>
@@ -134,7 +134,7 @@
                                                     <option value="32 GB RAM">32 GB RAM </option>
                                                     <option value="64 GB RAM">64 GB RAM</option>
                                                 </select>
-                                                <span class="input-group-text iconParent"><i  class="fa fa-star" id="carAgeIcon" ></i></span>
+                                                <span class="input-group-text iconParent"><i  class="fa fa-star" id="ramSizeIcon" ></i></span>
                                             </div>
                                             <div class="error" id="ramSizeErr"></div>
                                         </div>
@@ -151,7 +151,7 @@
                                                    <option value="4 TB NVME SSD">4 TB NVME SSD </option>
                                                    <option value="8 TB  NVME SSD">8 TB  NVME SSD</option>
                                                </select>
-                                                <span class="input-group-text iconParent"><i  class="fa fa-star" id="carMileageIcon" ></i></span>
+                                                <span class="input-group-text iconParent"><i  class="fa fa-star" id="ssdStorageIcon" ></i></span>
                                             </div>
                                             <div class="error" id="ssdErr"></div>
                                         </div>
@@ -168,7 +168,7 @@
                                                    <option value="4 TB HHD">4 TB HHD</option>
                                                    <option value="4 TB HHD">4 TB HHD</option>
                                                </select>
-                                                <span class="input-group-text iconParent"><i  class="fa fa-star" id="carMileageIcon" ></i></span>
+                                                <span class="input-group-text iconParent"><i  class="fa fa-star" id="hhdStorageIcon" ></i></span>
                                             </div>
                                             <div class="error" id="hhdErr"></div>
                                         </div>
@@ -184,7 +184,7 @@
                         <option>RTX 3070 </option>
                         <option>RTX 3080</option>
                     </select>
-                                                <span class="input-group-text iconParent"><i  class="fa fa-star" id="stateIcon" ></i></span>
+                                                <span class="input-group-text iconParent"><i  class="fa fa-star" id="gpuIcon" ></i></span>
                                             </div>
                                             <div class="error" id="gpuErr"></div>
                                         </div>
@@ -202,7 +202,7 @@
                                             <option value="16 Inches">16 Inches</option>
                                             <option value="17 Inches">17 Inches</option>
                                         </select>
-                                        <span class="input-group-text iconParent"><i  class="fa fa-star" id="startingAtIcon" ></i></span>
+                                        <span class="input-group-text iconParent"><i  class="fa fa-star" id="displaySizeIcon" ></i></span>
                                     </div>
                                     <div class="error" id="displaySizeErr"></div>
                                 </div>
@@ -222,7 +222,7 @@
                                             <option value="QHD 165 HTZ">QHD 165 HTZ</option>
 
                                         </select>
-                                        <span class="input-group-text iconParent"><i  class="fa fa-star" id="startingAtIcon" ></i></span>
+                                        <span class="input-group-text iconParent"><i  class="fa fa-star" id="displayResolutionIcon" ></i></span>
                                     </div>
                                     <div class="error" id="displayResErr"></div>
                                 </div>
@@ -230,7 +230,7 @@
                                     <label for="price" class="form-label">Price</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="price" name="price" aria-describedby="inputGroupPrepend" placeholder="Starting At" onkeyup="validatePrice()">
-                                        <span class="input-group-text iconParent"><i  class="fa fa-star" id="startingAtIcon" ></i></span>
+                                        <span class="input-group-text iconParent"><i  class="fa fa-star" id="priceIcon" ></i></span>
                                     </div>
                                     <div class="error" id="priceErr"></div>
                                 </div>
@@ -340,17 +340,17 @@
 
         if (manufacturerName.value == "") {
             printError("manufacturerErr", "Please enter the name of manufacturer of the laptop");
-            inValid(manufacturerName, "carBrandIcon");
+            inValid(manufacturerName, "manuafacturerNameIcon");
 
         } else {
             var regex = /^[A-Z][a-z]*/;
             if (regex.test(manufacturerName.value) === false) {
                 printError("manufacturerErr", "Please enter a valid laptop manufacturer Name");
-                inValid(manufacturerName, "carBrandIcon");
+                inValid(manufacturerName, "manuafacturerNameIcon");
             } else {
                 printError("manufacturerErr", "");
                 manufacturerErr = false;
-                valid(manufacturerName, "carBrandIcon");
+                valid(manufacturerName, "manuafacturerNameIcon");
             }
         }
     }
@@ -359,17 +359,17 @@
 
         if (brandName.value == "") {
             printError("brandErr", "Please enter the name of the brand of the laptop");
-            inValid(brandName, "carBrandIcon");
+            inValid(brandName, "brandNameIcon");
 
         } else {
             var regex = /^[A-Z][a-z]*/;
             if (regex.test(brandName.value) === false) {
                 printError("brandErr", "Please enter a valid brand Name");
-                inValid(carBrand, "carBrandIcon");
+                inValid(brandName, "brandNameIcon");
             } else {
                 printError("brandErr", "");
                 brandErr = false;
-                valid(brandName, "carBrandIcon");
+                valid(brandName, "brandNameIcon");
             }
         }
     }
@@ -380,7 +380,7 @@
         // Validate Starting At
         if (price.value == "") {
             printError("priceErr", "Please enter a price");
-            inValid(price, "startingAtIcon");
+            inValid(price, "priceIcon");
         } else {
             // Regular expression for Starting At price
             var regex = /^[0-9,.]+$/; // ex: 22,495
@@ -388,11 +388,11 @@
 
             if ((regex.test(price.value)) === false) {
                 printError("priceErr", "Please enter a valid  price");
-                inValid(price, "startingAtIcon");
+                inValid(price, "priceIcon");
             } else {
                 printError("priceErr", "");
                 priceErr = false;
-                valid(price, "startingAtIcon");
+                valid(price, "priceIcon");
             }
         }
     }
@@ -404,11 +404,11 @@
         // Validate carMileage
         if (ramSize.value == "") {
             printError("ramSizeErr", "Please select your ram Size");
-            inValid(ramSize, "carMileageIcon");
+            inValid(ramSize, "ramSizeIcon");
         } else {
             printError("ramSizeErr", "");
             ramSizeErr = false;
-            valid(ramSize, "carMileageIcon");
+            valid(ramSize, "ramSizeIcon");
         }
     }
 
@@ -417,11 +417,11 @@
         // Validate carMileage
         if (ssdStorage.value == "") {
             printError("ssdErr", "Please select your ssd storage");
-            inValid(ssdStorage, "carMileageIcon");
+            inValid(ssdStorage, "ssdStorageIcon");
         } else {
             printError("ssdErr", "");
             ssdErr = false;
-            valid(ssdStorage, "carMileageIcon");
+            valid(ssdStorage, "ssdStorageIcon");
         }
     }
     // Validate carMileage
@@ -429,11 +429,11 @@
         // Validate carMileage
         if (hhdStorage.value == "") {
             printError("hhdErr", "Please select your hhd storage ");
-            inValid(hhdStorage, "carMileageIcon");
+            inValid(hhdStorage, "hhdStorageIcon");
         } else {
             printError("hhdErr", "");
             hhdErr = false;
-            valid(hhdStorage, "carMileageIcon");
+            valid(hhdStorage, "hhdStorageIcon");
         }
     }
 
@@ -441,11 +441,11 @@
         // Validate carMileage
         if (gpu.value == "") {
             printError("gpuErr", "Please select your gpu");
-            inValid(gpu, "carMileageIcon");
+            inValid(gpu, "gpuIcon");
         } else {
             printError("gpuErr", "");
             gpuErr = false;
-            valid(gpu, "carMileageIcon");
+            valid(gpu, "gpuIcon");
         }
     }
 
@@ -454,11 +454,11 @@
         // Validate carMileage
         if (displaySize.value == "") {
             printError("displaySizeErr", "Please select your display Size");
-            inValid(displaySize, "carMileageIcon");
+            inValid(displaySize, "displaySizeIcon");
         } else {
             printError("displaySizeErr", "");
             displaySizeErr = false;
-            valid(displaySize, "carMileageIcon");
+            valid(displaySize, "displaySizeIcon");
         }
     }
     // Validate carMileage
@@ -466,11 +466,11 @@
         // Validate carMileage
         if (displayResolution.value == "") {
             printError("displayResErr", "Please select your display resolution");
-            inValid(displayResolution, "carMileageIcon");
+            inValid(displayResolution, "displayResolutionIcon");
         } else {
             printError("displayResErr", "");
             displayResErr = false;
-            valid(displayResolution, "carMileageIcon");
+            valid(displayResolution, "displayResolutionIcon");
         }
     }
 
